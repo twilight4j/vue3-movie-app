@@ -2,6 +2,10 @@
   <div 
     :style="{ backgroundImage: `url(${movie.Poster})` }"
     class="movie">
+    <Loader 
+      v-if="imageLoading"
+      :size="1.5"
+      absolute />
     <div class="info">
       <div class="year">
         {{ movie.Year }}
@@ -14,13 +18,33 @@
 </template>
 
 <script>
+import Loader from '~/components/Loader'
+
 export default {
+  components: {
+    Loader
+  },
   props: {
     movie: {
       type: Object,
       // 배열이나 객체 데이터는 데이터가 가변할 수 있음
       // 함수를 만들어서 객체(배열)데이터를 반환하도록 해야함
       default: () => ({})
+    }
+  },
+  data() {
+    return{
+      imageLoading: true
+    }
+  },
+  mounted() {
+    // created 에서는 HTML구조가 연결된 상태가 아니기 때문에 mounted 에서 init 호출
+    this.init()
+  },
+  methods: {
+    async init() {
+      await this.$loadImage(this.movie.Poster)
+      this.imageLoading = false
     }
   }
 }

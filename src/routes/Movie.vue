@@ -15,14 +15,18 @@
       <Loader 
         :size="3"
         :z-index="9" 
-        fixed="true" />
+        fixed />
     </templete>
     <div
       v-else
       class="movie-details">
       <div
-        :style="{backgroundImage: `url(${theMovie.Poster})`}"
-        class="poster" />
+        :style="{backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})`}"
+        class="poster">
+        <Loader 
+          v-if="imageLoading"
+          absolute />
+      </div>
       <div class="specs">
         <div class="title">
           {{ theMovie.Title }}
@@ -73,6 +77,11 @@ export default {
   components: {
     Loader
   },
+  data() {
+    return {
+      imageLoading: true
+    }
+  },
   computed: {
     theMovie() {
       return this.$store.state.movie.theMovie
@@ -86,6 +95,17 @@ export default {
     this.$store.dispatch('movie/searchMovieWithId', {
       id: this.$route.params.id
     })
+  },
+  methods: {
+    requestDiffSizeImage(url, size = 700) {
+      const src = url.replace('SX300', `SX${size}`)
+      this.$loadImage(src)
+      .then(() => {
+        // 아래 return src 와는 상관없이 동작하게 됨
+        this.imageLoading = false
+      })
+      return src
+    }
   }
 }
 </script>

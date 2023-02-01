@@ -19,10 +19,13 @@ export default {
       type: Number,
       default: 2
     },
+    // 부모요소 기준의 가운데 배치
+    // 부모요소에 position: relative; 필요
     absolute: {
       type: Boolean,
       default: false
     },
+    // Viewport 기준의 가운데 배치
     fixed: {
       type: Boolean,
       default: false
