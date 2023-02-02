@@ -98,10 +98,16 @@ export default {
   },
   methods: {
     requestDiffSizeImage(url, size = 700) {
+      if (!url || url === 'N/A') {
+        this.imageLoading = false
+        return '' // 명시하지 않으면 undefined 가 반환 됨
+      }
       const src = url.replace('SX300', `SX${size}`)
       this.$loadImage(src)
       .then(() => {
-        // 아래 return src 와는 상관없이 동작하게 됨
+        // await를 사용하면 loading이 끝날 때 까지 기다렸다가 return src 를 실행하게됨
+        // then 안의 코드는 loading이 끝나면 실행되며
+        // return src 는 이와 상관없이 동작하게 됨
         this.imageLoading = false
       })
       return src
