@@ -77,6 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../scss/main.scss";
 .container {
   display: flex;
   > * {
@@ -101,6 +102,25 @@ export default {
     height: 50px;
     font-weight: 700;
     flex-shrink: 0;
+  }
+  // viewport의 크기가 lg 보다 작아지면 flex의 item 들을 수평에서 수직으로 변경
+  // 수직에 어울리도록 스타일 수정
+  @include media-breakpoint-down(lg) {
+    display: block; 
+    input {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .selects {
+      margin-right: 0;
+      margin-bottom: 10px;
+      select {
+        width: 100%;
+      }
+    }
+    .btn {
+      width: 100%;
+    }
   }
 }
 </style>

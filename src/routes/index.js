@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router"
 import Home from './Home'
 import Movie from './Movie'
 import About from './About'
+import NotFound from './Notfound'
 
 export default createRouter({
   // Hash or History
@@ -21,6 +22,10 @@ export default createRouter({
     {
       path: '/about',
       component: About
+    },
+    {
+      path: '/:pathMatch(.*)', // 슬래시로 시작하는 모든 문자
+      component: NotFound
     }
   ]
 })

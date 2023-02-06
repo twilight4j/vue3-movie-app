@@ -215,5 +215,34 @@ export default {
       font-size: 20px
     }
   }
+  @include media-breakpoint-down(xl) {
+    .poster {
+      width: 300px;
+      height: 300px * calc(3/2);
+      margin-right: 40px;
+    }
+  }
+  // viewport의 크기가 lg 보다 작아지면 flex의 item 들을 수평에서 수직으로 변경
+  @include media-breakpoint-down(lg) {
+    display: block;
+    .poster {
+      margin-bottom: 40px;
+    }
+  }
+  @include media-breakpoint-down(md) {
+    .specs {
+      .title {
+        font-size: 50px;
+      }
+      .ratings {
+        .rating-wrap {
+          display: block;
+          .rating {
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
